@@ -10,10 +10,11 @@ using UnityEngine;
 public class EnemyDamage : MonoBehaviour
 {
     public int damage = 15;
+    public PlayerController dealDamage;
     // Start is called before the first frame update
     void Start()
     {
-
+        dealDamage.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -23,6 +24,6 @@ public class EnemyDamage : MonoBehaviour
     }
     public void DamagePower()
     {
-
+        dealDamage.playerLives -= damage;
     }
 }
