@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 3083325075667244001}
   - component: {fileID: 1800110504844176647}
   - component: {fileID: 450524616390107826}
+  - component: {fileID: 2125238211873453980}
   m_Layer: 0
   m_Name: Enemy Body
   m_TagString: Untagged
@@ -181,6 +182,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2125238211873453980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3073184895553117567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ad05967bcec104ea97b36f0cb1566c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 15
+  dealDamage: {fileID: 4524519610735211256, guid: 529eeefc31b40b644b4b32a2b76d92b4, type: 3}
 --- !u!1 &6798453603502100397
 GameObject:
   m_ObjectHideFlags: 0
