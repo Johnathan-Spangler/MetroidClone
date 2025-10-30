@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 1761190419}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -542,6 +542,7 @@ MonoBehaviour:
   moving: 0
   jumping: 0
   speed: 5
+  playerLives: 99
   moveDirection: {x: 1, y: 0, z: 0}
 --- !u!4 &1761190418
 Transform:
