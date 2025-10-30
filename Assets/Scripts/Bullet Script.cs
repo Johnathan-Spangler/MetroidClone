@@ -21,4 +21,11 @@ public class BulletScript : MonoBehaviour
     {
         
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<EnemyScript>())
+        {//lower the health of the enemy when collision with bullet
+            collision.gameObject.GetComponent<EnemyScript>().EnemyHurt();
+        }
+    }
 }
