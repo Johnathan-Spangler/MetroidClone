@@ -13,6 +13,7 @@ public class EnemyScript : MonoBehaviour
     public Transform rightPoint;
     public float speed = 3f;
     public int Health;
+  
 
     private Vector3 direction;
     private Vector3 startLeftPos;
