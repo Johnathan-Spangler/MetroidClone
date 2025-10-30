@@ -19,13 +19,14 @@ public class BulletScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ProjMove();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        ProjMove();
+        BulletWall();
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -51,9 +52,9 @@ public class BulletScript : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, direction, out hit, bulletwalldetection))
+        if (Physics.Raycast(transform.position, direction, out hit, bulletwalldetection) && CompareTag("Enviorment"))
         {
-            
+            Destroy(gameObject);
         }
     }
 }
