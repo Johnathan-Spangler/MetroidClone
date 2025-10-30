@@ -275,7 +275,7 @@ MonoBehaviour:
   leftPoint: {fileID: 896287244}
   rightPoint: {fileID: 962050691}
   speed: 3
-  Health: 1
+  Health: 2
 --- !u!1 &962050690
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 971179960}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Enviorment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -685,6 +685,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletDamage: 1
+  speed: 3
+  directionint: 0
 --- !u!1 &1954785747
 GameObject:
   m_ObjectHideFlags: 0
