@@ -32,7 +32,10 @@ public class BulletScript : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<EnemyScript>())
         {//lower the health of the enemy when collision with bullet
-            collision.gameObject.GetComponent<EnemyScript>().EnemyHurt();
+            for (int i = 0; i <= bulletDamage; i++)
+            {
+                collision.gameObject.GetComponent<EnemyScript>().EnemyHurt();
+            }
         }
         Destroy(gameObject);
     }

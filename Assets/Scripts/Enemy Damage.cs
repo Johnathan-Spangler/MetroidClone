@@ -26,4 +26,12 @@ public class EnemyDamage : MonoBehaviour
     {
         dealDamage.playerLives -= damage;
     }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            DamagePower();
+        }
+
+    }
 }
