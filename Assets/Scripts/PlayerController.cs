@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
 {
     public bool moving = false;
     public bool jumping = false;
-    public float speed = 5;
+    public float speed = 10;
+    public int playerLives = 99;
     public Vector3 moveDirection = Vector3.right;
 
     private Rigidbody rb;
@@ -33,19 +34,24 @@ public class PlayerController : MonoBehaviour
             moveDirection = Vector3.right;
             moving = true;
         }
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             moveDirection = Vector3.left;
-            moving = true;
-        }
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-        {
-            moveDirection = Vector3.right;
             moving = true;
         }
         else
         {
             moving = false;
+        }
+
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
+        {
+            moveDirection = Vector3.up;
+            jumping = true;
+        }
+        else
+        {
+            jumping = false;
         }
     }
 
@@ -53,11 +59,13 @@ public class PlayerController : MonoBehaviour
     {
         if (moving == true)
         {
-            rb.AddForce(moveDirection * (speed*100) * Time.deltaTime, ForceMode.Force);
+            print("Moving " + moveDirection);
+            rb.AddForce(moveDirection * (speed * 100) * Time.deltaTime, ForceMode.Force);
         }
         if (jumping == true)
         {
-            rb.AddForce(moveDirection * (speed * 100) * Time.deltaTime, ForceMode.Impulse);
+            print("Moving " + moveDirection);
+            rb.AddForce(moveDirection * (speed * 10) * Time.deltaTime, ForceMode.Impulse);
         }
     }
 }
