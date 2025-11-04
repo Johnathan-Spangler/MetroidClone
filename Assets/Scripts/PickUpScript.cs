@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class PickUpScript : MonoBehaviour
 {
+    public int itemtype = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,24 @@ public class PickUpScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            if (itemtype == 0)
+            {
 
+            }
+            if (itemtype == 1)
+            {
+
+            }
+            if (itemtype == 2)
+            {
+
+            }
+            if (itemtype == 3)
+            {
+
+            }
+
+            Destroy(gameObject);
         }
     }
 }
