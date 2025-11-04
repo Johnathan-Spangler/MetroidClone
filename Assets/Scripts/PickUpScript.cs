@@ -35,10 +35,10 @@ public class PickUpScript : MonoBehaviour
             switch (itemtype)
             {
                 case Itemtype.Heavy_Bullet:
-                    
+                    player.bulletUpgrade = true;
                     break;
                 case Itemtype.Jump:
-
+                    player.jumpUpgrade = true;
                     break;
                 case Itemtype.XtraHealth:
 
