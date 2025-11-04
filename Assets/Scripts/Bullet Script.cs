@@ -13,18 +13,20 @@ public class BulletScript : MonoBehaviour
     public int bulletDamage = 1;
     public float speed = 3f;
     public float bulletwalldetection = 1;
-    public int directionint;
-    
+    public float directionint;
+    public PlayerController player;
+
     private Vector3 direction;
     // Start is called before the first frame update
     void Start()
     {
-
+        player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        directionint = player.moveDirection.x;
         ProjMove();
         BulletWall();
     }
