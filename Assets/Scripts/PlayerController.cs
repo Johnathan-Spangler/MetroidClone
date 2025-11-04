@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         }
         if (jumping == true)
         {
-            print("Moving " + moveDirection);
+            //print("Moving " + moveDirection);
             rb.AddForce(moveDirection * (speed * 10) * Time.deltaTime, ForceMode.Impulse);
         }
     }
@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
         {
             moving = false;
         }
-
         if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && grounded == true)
         {
             moveDirection = Vector3.up;
@@ -80,17 +79,22 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit hit;
 
-        Vector3 Offset = transform.position;
+        Vector3 OffsetX = transform.position;
+        Vector3 OffsetY = transform.position;
 
-        Offset.x += (GetComponent<Collider>().bounds.extents.x + 0.25f); // + 0.25 for cayote time
-        Offset.y += (GetComponent<Collider>().bounds.extents.y + 0.25f); // + 0.25 for cayote time
+        OffsetX.x += (GetComponent<Collider>().bounds.extents.x + 0.25f); // + 0.25 for cayote time
+        OffsetY.y -= (GetComponent<Collider>().bounds.extents.y + 0.25f); // + 0.25 for cayote time
 
-        if ((Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity) && (hit.distance <= Offset.y) && hit.collider.CompareTag("Enviorment"))
-            && (Physics.Raycast(Offset, Vector3.down, out hit, Mathf.Infinity) && (hit.distance <= Offset.y) && hit.collider.CompareTag("Enviorment")) 
-            && (Physics.Raycast(-Offset, Vector3.down, out hit, Mathf.Infinity) && (hit.distance <= Offset.y) && hit.collider.CompareTag("Enviorment")) //FIX OFFSET VARIABLES, THEY HAVE THE Y TOO, DON'T NEED THAT
+        if ((Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity) && (hit.point.y >= OffsetY.y) && hit.collider.CompareTag("Enviorment"))
+            || (Physics.Raycast(OffsetX, Vector3.down, out hit, Mathf.Infinity) && (hit.point.y >= OffsetY.y) && hit.collider.CompareTag("Enviorment")) 
+            || (Physics.Raycast(-OffsetX, Vector3.down, out hit, Mathf.Infinity) && (hit.point.y >= OffsetY.y) && hit.collider.CompareTag("Enviorment")) //FIX OFFSET VARIABLES, THEY HAVE THE Y TOO, DON'T NEED THAT
             )
         {
             grounded = true;
+        }
+        else
+        {
+            grounded = false;
         }
     }
 }
