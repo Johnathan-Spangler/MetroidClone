@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
         if ((Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity) && (hit.point.y >= OffsetY.y) && hit.collider.CompareTag("Enviorment"))
             || (Physics.Raycast(OffsetX, Vector3.down, out hit, Mathf.Infinity) && (hit.point.y >= OffsetY.y) && hit.collider.CompareTag("Enviorment")) 
-            || (Physics.Raycast(-OffsetX, Vector3.down, out hit, Mathf.Infinity) && (hit.point.y >= OffsetY.y) && hit.collider.CompareTag("Enviorment")) //FIX OFFSET VARIABLES, THEY HAVE THE Y TOO, DON'T NEED THAT
+            || (Physics.Raycast(-OffsetX, Vector3.down, out hit, Mathf.Infinity) && (hit.point.y >= OffsetY.y) && hit.collider.CompareTag("Enviorment"))
             )
         {
             grounded = true;
@@ -114,13 +114,24 @@ public class PlayerController : MonoBehaviour
     public void Shooting()
     {
         if (Input.GetKeyDown(KeyCode.Period)) {
+            Vector3 bulletPos = transform.position;
+            float Offset = (GetComponent<Collider>().bounds.extents.x + 0.5f);
+            if (moveDirection.x == 1)
+            {
+                Offset *= -1;
+            }
+            else if (moveDirection.x == -1)
+            {
+                Offset *= 1;
+            }
+            bulletPos.x += transform.position.x + Offset;
             if (!bulletUpgrade)
             {
-                Instantiate(bullet1, transform);
+                Instantiate(bullet1, bulletPos, transform.rotation);
             }
             if (bulletUpgrade)
             {
-                Instantiate(bullet2, transform);
+                Instantiate(bullet2, bulletPos, transform.rotation);
             }
         }
     }

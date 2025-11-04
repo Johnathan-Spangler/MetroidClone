@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4349214527695738153}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.9, y: 1.46, z: -7.2}
+  m_LocalPosition: {x: -0.15, y: 1.46, z: -7.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -225,9 +225,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moving: 0
   jumping: 0
+  grounded: 0
+  bulletUpgrade: 0
+  jumpUpgrade: 0
   speed: 5
+  jPower: 10
   playerLives: 99
   moveDirection: {x: 1, y: 0, z: 0}
+  bullet1: {fileID: 0}
+  bullet2: {fileID: 0}
 --- !u!136 &1829326292610798751
 CapsuleCollider:
   m_ObjectHideFlags: 0
