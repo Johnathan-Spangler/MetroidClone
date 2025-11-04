@@ -41,7 +41,7 @@ public class PickUpScript : MonoBehaviour
                     player.jumpUpgrade = true;
                     break;
                 case Itemtype.XtraHealth:
-
+                    player.playerLives += 100;
                     break;
                 case Itemtype.Heal:
                     player.playerLives += healpower;
