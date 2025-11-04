@@ -15,9 +15,16 @@ public class PlayerController : MonoBehaviour
     public bool moving = false;
     public bool jumping = false;
     public bool grounded = false;
+    public bool bulletUpgrade = false;
+    public bool jumpUpgrade = false;
+    //public bool ballUpgrade = false;
     public float speed = 10;
+    public float jPower = 10;
     public int playerLives = 99;
     public Vector3 moveDirection = Vector3.right;
+
+    public GameObject bullet1;
+    public GameObject bullet2;
 
     private Rigidbody rb;
 
@@ -32,6 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         OnGround();
         Movement();
+        Shooting();
     }
 
     private void FixedUpdate()
@@ -44,7 +52,7 @@ public class PlayerController : MonoBehaviour
         if (jumping == true)
         {
             //print("Moving " + moveDirection);
-            rb.AddForce(moveDirection * (speed * 10) * Time.deltaTime, ForceMode.Impulse);
+            rb.AddForce(moveDirection * (speed * jPower) * Time.deltaTime, ForceMode.Impulse);
         }
     }
 
@@ -73,6 +81,11 @@ public class PlayerController : MonoBehaviour
         {
             jumping = false;
         }
+
+        if (jumpUpgrade)
+        {
+            jPower = 20;
+        }
     }
 
     private void OnGround()
@@ -95,6 +108,20 @@ public class PlayerController : MonoBehaviour
         else
         {
             grounded = false;
+        }
+    }
+
+    public void Shooting()
+    {
+        if (Input.GetKeyDown(KeyCode.Period)) {
+            if (!bulletUpgrade)
+            {
+                Instantiate(bullet1, transform);
+            }
+            if (bulletUpgrade)
+            {
+                Instantiate(bullet2, transform);
+            }
         }
     }
 }
