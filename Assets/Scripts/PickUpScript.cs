@@ -38,8 +38,10 @@ public class PickUpScript : MonoBehaviour
                     
                     break;
                 case Itemtype.Jump:
+
                     break;
                 case Itemtype.XtraHealth:
+
                     break;
                 case Itemtype.Heal:
                     player.playerLives += healpower;
