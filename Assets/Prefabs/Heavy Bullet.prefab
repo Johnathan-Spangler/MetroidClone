@@ -124,7 +124,7 @@ MonoBehaviour:
   bulletDamage: 3
   speed: 3
   bulletwalldetection: 1
-  directionint: 1
+  player: {fileID: 4524519610735211256, guid: 529eeefc31b40b644b4b32a2b76d92b4, type: 3}
 --- !u!54 &5349613643638906828
 Rigidbody:
   m_ObjectHideFlags: 0

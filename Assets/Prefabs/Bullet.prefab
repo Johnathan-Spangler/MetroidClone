@@ -149,4 +149,4 @@ MonoBehaviour:
   bulletDamage: 1
   speed: 3
   bulletwalldetection: 1
-  directionint: 1
+  player: {fileID: 4524519610735211256, guid: 529eeefc31b40b644b4b32a2b76d92b4, type: 3}
