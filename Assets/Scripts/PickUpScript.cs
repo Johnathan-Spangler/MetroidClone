@@ -10,10 +10,13 @@ using UnityEngine;
 public class PickUpScript : MonoBehaviour
 {
     public int itemtype = 0;
+    public PlayerController player;
+    public int healpower = 20;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -39,10 +42,11 @@ public class PickUpScript : MonoBehaviour
             }
             if (itemtype == 3)
             {
-
+                player.playerLives += healpower;
             }
 
             Destroy(gameObject);
         }
     }
+   
 }
