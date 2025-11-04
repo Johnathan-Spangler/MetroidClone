@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /*
- * 
- * 
- * 
+ * Topher Overbey
+ * 11/4/2025
+ * Controls the items you pick up
 */
 
 public class PickUpScript : MonoBehaviour
