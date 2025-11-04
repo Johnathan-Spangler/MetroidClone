@@ -13,7 +13,6 @@ public class BulletScript : MonoBehaviour
     public int bulletDamage = 1;
     public float speed = 3f;
     public float bulletwalldetection = 1;
-    public float directionint;
     public PlayerController player;
 
     private Vector3 direction;
@@ -26,7 +25,7 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        directionint = player.moveDirection.x;
+        direction = player.moveDirection;
         ProjMove();
         BulletWall();
     }
@@ -44,14 +43,6 @@ public class BulletScript : MonoBehaviour
     private void ProjMove()
     {
         transform.position += direction * speed * Time.deltaTime;
-        if (directionint == 1)
-        {//change direction to right
-            direction = Vector3.right;
-        }
-        else if (directionint == 0)
-        {
-            direction = Vector3.left;
-        }
     }
     private void BulletWall()
     {
