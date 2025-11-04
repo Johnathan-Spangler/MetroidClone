@@ -48,7 +48,6 @@ public class PickUpScript : MonoBehaviour
                     break;
             }
 
-            player.playerLives += healpower;
            
 
             Destroy(gameObject);
