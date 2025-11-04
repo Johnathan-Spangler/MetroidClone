@@ -6,10 +6,14 @@ using UnityEngine;
  * 11/4/2025
  * Controls the items you pick up
 */
+public enum Itemtype
+{ 
+    Heavy_Bullet, Jump, XtraHealth, Heal
+}
 
 public class PickUpScript : MonoBehaviour
 {
-    public int itemtype = 0;
+    public Itemtype itemtype = Itemtype.Heal;
     public PlayerController player;
     public int healpower = 20;
 
@@ -28,22 +32,24 @@ public class PickUpScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (itemtype == 0)
+            switch (itemtype)
             {
+                case Itemtype.Heavy_Bullet:
+                    
+                    break;
+                case Itemtype.Jump:
+                    break;
+                case Itemtype.XtraHealth:
+                    break;
+                case Itemtype.Heal:
+                    player.playerLives += healpower;
+                    break;
+                default:
+                    break;
+            }
 
-            }
-            if (itemtype == 1)
-            {
-
-            }
-            if (itemtype == 2)
-            {
-
-            }
-            if (itemtype == 3)
-            {
-                player.playerLives += healpower;
-            }
+            player.playerLives += healpower;
+           
 
             Destroy(gameObject);
         }
