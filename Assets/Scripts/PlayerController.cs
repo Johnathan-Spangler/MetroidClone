@@ -111,28 +111,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Shooting()
+    public IEnumerator Shooting()
     {
         if (Input.GetKeyDown(KeyCode.Period)) {
             Vector3 bulletPos = transform.position;
             float Offset = (GetComponent<Collider>().bounds.extents.x + 0.5f);
             if (moveDirection.x == 1)
             {
-                Offset *= -1;
+                Offset *= 1;
             }
             else if (moveDirection.x == -1)
             {
-                Offset *= 1;
+                Offset *= -1;
             }
-            bulletPos.x += transform.position.x + Offset;
+            bulletPos.x += Offset;
             if (!bulletUpgrade)
             {
                 Instantiate(bullet1, bulletPos, transform.rotation);
             }
-            if (bulletUpgrade)
+            else if (bulletUpgrade)
             {
                 Instantiate(bullet2, bulletPos, transform.rotation);
             }
+            yield return 2;
         }
     }
 }
