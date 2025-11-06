@@ -12,25 +12,30 @@ public class BulletScript : MonoBehaviour
 {
     public int bulletDamage = 1;
     public float speed = 3f;
-    public float bulletwalldetection;
+    public float bulletwalldetection = 1;
     public PlayerController player;
-    public Vector3 bulletDirection;
+    public bool bulletdirection;
 
-    private Rigidbody rb;
-
+    private Vector3 direction;
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        bulletwalldetection = (GetComponent<Collider>().bounds.extents.x + 1f);
         player.GetComponent<PlayerController>();
-        bulletDirection = player.moveDirection;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (bulletdirection == true)
+        {
+            direction = Vector3.right;
+        }
+        if (bulletdirection == false)
+        {
+            direction = Vector3.left;
+        }
         ProjMove();
+        BulletWall();
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -40,17 +45,21 @@ public class BulletScript : MonoBehaviour
             {
                 collision.gameObject.GetComponent<EnemyScript>().EnemyHurt();
             }
-            Destroy(gameObject);
         }
-        if (collision.gameObject.CompareTag("Enviorment"))
+        Destroy(gameObject);
+    }
+    private void ProjMove()
+    {
+        transform.position += direction * speed * Time.deltaTime;
+    }
+    private void BulletWall()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, direction, out hit, bulletwalldetection) && CompareTag("Enviorment"))
         {
             Destroy(gameObject);
         }
     }
-    private void ProjMove()
-    {
-        Vector3 XPos = transform.position;
-        XPos.x += (bulletDirection.x * speed * Time.deltaTime);
-        transform.position = XPos;
-    }
+    
 }
