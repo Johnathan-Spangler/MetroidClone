@@ -15,11 +15,13 @@ public class PlayerController : MonoBehaviour
     public bool moving = false;
     public bool jumping = false;
     public bool grounded = false;
+    public bool shot = false;
     public bool bulletUpgrade = false;
     public bool jumpUpgrade = false;
     //public bool ballUpgrade = false;
     public float speed = 10;
     public float jPower = 10;
+    public Vector3 playerVelocity = Vector3.zero;
     public int playerLives = 99;
     public Vector3 moveDirection = Vector3.right;
 
@@ -37,9 +39,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerVelocity = rb.velocity;
         OnGround();
         Movement();
-        StartCoroutine(Shooting());
     }
 
     private void FixedUpdate()
@@ -87,6 +89,11 @@ public class PlayerController : MonoBehaviour
         {
             jPower = 20;
         }
+
+        if (Input.GetKeyDown(KeyCode.Period) && !shot)
+        {
+            StartCoroutine(Timer());
+        }
     }
 
     private void OnGround()
@@ -112,31 +119,43 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public IEnumerator Shooting()
+    public IEnumerator Timer()
     {
-        if (Input.GetKeyDown(KeyCode.Period)) {
-            Vector3 bulletPos = transform.position;
-            float Offset = (GetComponent<Collider>().bounds.extents.x + 0.5f);
-            if (moveDirection.x == 1)
-            {
-                Offset *= 1;
-            }
-            else if (moveDirection.x == -1)
-            {
-                Offset *= -1;
-            }
-            bulletPos.x += Offset;
-            if (!bulletUpgrade)
-            {
-                GameObject newSmallBullet = Instantiate(bullet1, bulletPos, transform.rotation);
-                newSmallBullet.GetComponent<BulletScript>().player = this;
-            }
-            else if (bulletUpgrade)
-            {
-                GameObject newBigBullet = Instantiate(bullet2, bulletPos, transform.rotation);
-                newBigBullet.GetComponent<BulletScript>().player = this;
-            }
+        if (Input.GetKeyDown(KeyCode.Period))
+        {
+            shot = true;
+            Shooting();
             yield return new WaitForSeconds(0.5f);
+            shot = false;
+        }
+    }
+
+    public void Shooting()
+    {
+        if (!shot)
+        {
+            return;
+        }
+        Vector3 bulletPos = transform.position;
+        float Offset = (GetComponent<Collider>().bounds.extents.x + 0.5f);
+        if (moveDirection.x == 1)
+        {
+            Offset *= 1;
+        }
+        else if (moveDirection.x == -1)
+        {
+            Offset *= -1;
+        }
+        bulletPos.x += Offset;
+        if (!bulletUpgrade)
+        {
+            GameObject newBullet = Instantiate(bullet1, bulletPos, transform.rotation);
+            newBullet.GetComponent<BulletScript>().player = this;
+        }
+        else
+        {
+            GameObject newBullet = Instantiate(bullet2, bulletPos, transform.rotation);
+            newBullet.GetComponent<BulletScript>().player = this;
         }
     }
 }

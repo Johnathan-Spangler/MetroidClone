@@ -14,7 +14,15 @@ public class BulletScript : MonoBehaviour
     public float speed = 3f;
     public float bulletwalldetection = 1;
     public PlayerController player;
+<<<<<<< Updated upstream
     public bool bulletdirection;
+=======
+    public Vector3 bulletDirection;
+
+    private float currentSpeed = 0;
+
+    private Rigidbody rb;
+>>>>>>> Stashed changes
 
     private Vector3 direction;
     // Start is called before the first frame update
@@ -26,6 +34,7 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< Updated upstream
         if (bulletdirection == true)
         {
             direction = Vector3.right;
@@ -34,6 +43,9 @@ public class BulletScript : MonoBehaviour
         {
             direction = Vector3.left;
         }
+=======
+        currentSpeed = speed + player.playerVelocity.x;
+>>>>>>> Stashed changes
         ProjMove();
         BulletWall();
     }
@@ -61,5 +73,15 @@ public class BulletScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
+<<<<<<< Updated upstream
     
+=======
+    private void ProjMove()
+    {
+        Vector3 XPos = transform.position;
+        XPos.x += (bulletDirection.x * currentSpeed * Time.deltaTime); //Set Absolute Value?
+        transform.position = XPos;
+        print("Current Speed: " + currentSpeed);
+    }
+>>>>>>> Stashed changes
 }
