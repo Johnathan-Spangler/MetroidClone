@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 2034475850}
   - component: {fileID: 2034475849}
   - component: {fileID: 2034475848}
+  - component: {fileID: 2034475852}
   m_Layer: 0
   m_Name: Big Enemy
   m_TagString: Untagged
@@ -484,6 +485,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2034475852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034475847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e15d848fecbc114dad6537203220251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  other: {fileID: 0}
+  speed: 3
+  Health: 10
+  dist2Player: 0
+  detectionRange: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
