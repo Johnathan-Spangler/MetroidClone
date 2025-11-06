@@ -14,6 +14,7 @@ public class BulletScript : MonoBehaviour
     public float speed = 3f;
     public float bulletwalldetection = 1;
     public PlayerController player;
+    public bool bulletdirection;
 
     private Vector3 direction;
     // Start is called before the first frame update
@@ -25,7 +26,14 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        direction = player.moveDirection;
+        if (bulletdirection = true)
+        {
+            direction = Vector3.right;
+        }
+        if (bulletdirection = false)
+        {
+            direction = Vector3.left;
+        }
         ProjMove();
         BulletWall();
     }
