@@ -19,7 +19,7 @@ public class PickUpScript : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    {//get the player's script
         player.GetComponent<PlayerController>();
     }
 
@@ -29,7 +29,7 @@ public class PickUpScript : MonoBehaviour
 
     }
     public void OnTriggerEnter(Collider other)
-    {
+    {//if the player is collided with, look at the item type then use it's script
         if (other.gameObject.CompareTag("Player"))
         {
             switch (itemtype)

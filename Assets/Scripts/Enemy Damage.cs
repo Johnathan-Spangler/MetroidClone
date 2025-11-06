@@ -13,7 +13,7 @@ public class EnemyDamage : MonoBehaviour
     public PlayerController dealDamage;
     // Start is called before the first frame update
     void Start()
-    {
+    {//get the player script to use later
         dealDamage.GetComponent<PlayerController>();
     }
 
@@ -23,11 +23,11 @@ public class EnemyDamage : MonoBehaviour
 
     }
     public void DamagePower()
-    {
+    {//deal damage to the player's lives based on the damage variable
         dealDamage.playerLives -= damage;
     }
     public void OnTriggerEnter(Collider other)
-    {
+    {//when we collide with soemthing, if it is the player damage it
         if (other.gameObject.CompareTag("Player"))
         {
             DamagePower();
