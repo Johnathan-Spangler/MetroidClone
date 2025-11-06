@@ -39,14 +39,14 @@ public class PlayerController : MonoBehaviour
     {
         OnGround();
         Movement();
-        Shooting();
+        StartCoroutine(Shooting());
     }
 
     private void FixedUpdate()
     {
         if (moving == true)
         {
-            print("Moving " + moveDirection);
+            //print("Moving " + moveDirection);
             rb.AddForce(moveDirection * (speed * 100) * Time.deltaTime, ForceMode.Force);
         }
         if (jumping == true)
@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
         {
             moving = false;
         }
+
         if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space)) && grounded == true)
         {
             moveDirection = Vector3.up;
@@ -127,13 +128,15 @@ public class PlayerController : MonoBehaviour
             bulletPos.x += Offset;
             if (!bulletUpgrade)
             {
-                Instantiate(bullet1, bulletPos, transform.rotation);
+                GameObject newSmallBullet = Instantiate(bullet1, bulletPos, transform.rotation);
+                newSmallBullet.GetComponent<BulletScript>().player = this;
             }
             else if (bulletUpgrade)
             {
-                Instantiate(bullet2, bulletPos, transform.rotation);
+                GameObject newBigBullet = Instantiate(bullet2, bulletPos, transform.rotation);
+                newBigBullet.GetComponent<BulletScript>().player = this;
             }
-            yield return 2;
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }
