@@ -12,42 +12,28 @@ public class BulletScript : MonoBehaviour
 {
     public int bulletDamage = 1;
     public float speed = 3f;
-    public float bulletwalldetection = 1;
+    public float bulletwalldetection;
     public PlayerController player;
-<<<<<<< Updated upstream
-    public bool bulletdirection;
-=======
     public Vector3 bulletDirection;
 
     private float currentSpeed = 0;
 
     private Rigidbody rb;
->>>>>>> Stashed changes
 
-    private Vector3 direction;
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        bulletwalldetection = (GetComponent<Collider>().bounds.extents.x + 1f);
         player.GetComponent<PlayerController>();
+        bulletDirection = player.moveDirection;
     }
 
     // Update is called once per frame
     void Update()
     {
-<<<<<<< Updated upstream
-        if (bulletdirection == true)
-        {
-            direction = Vector3.right;
-        }
-        if (bulletdirection == false)
-        {
-            direction = Vector3.left;
-        }
-=======
         currentSpeed = speed + player.playerVelocity.x;
->>>>>>> Stashed changes
         ProjMove();
-        BulletWall();
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -57,25 +43,13 @@ public class BulletScript : MonoBehaviour
             {
                 collision.gameObject.GetComponent<EnemyScript>().EnemyHurt();
             }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
-    }
-    private void ProjMove()
-    {
-        transform.position += direction * speed * Time.deltaTime;
-    }
-    private void BulletWall()
-    {
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, direction, out hit, bulletwalldetection) && CompareTag("Enviorment"))
+        if (collision.gameObject.CompareTag("Enviorment"))
         {
             Destroy(gameObject);
         }
     }
-<<<<<<< Updated upstream
-    
-=======
     private void ProjMove()
     {
         Vector3 XPos = transform.position;
@@ -83,5 +57,4 @@ public class BulletScript : MonoBehaviour
         transform.position = XPos;
         print("Current Speed: " + currentSpeed);
     }
->>>>>>> Stashed changes
 }
