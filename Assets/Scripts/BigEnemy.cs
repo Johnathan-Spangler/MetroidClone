@@ -14,6 +14,7 @@ public class BigEnemy : MonoBehaviour
     public int Health;
     public float dist2Player;
     public float detectionRange = 5f;
+    public bool doMove=false;
 
 
     private Vector3 direction;
@@ -21,6 +22,12 @@ public class BigEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (other)
+        {
+            // the second point is the position of the MonoBehaviour's transform
+            dist2Player = Vector3.Distance(other.position, transform.position);
+            //print("Distance to other: " + dist2Player);
+        }
         direction = Vector3.zero;
     }
 
@@ -33,27 +40,35 @@ public class BigEnemy : MonoBehaviour
             dist2Player = Vector3.Distance(other.position, transform.position);
             //print("Distance to other: " + dist2Player);
         }
-        
-        
-        MoveBig();
-        
-        
+        GetPlayerside();
+        if (doMove = false)
+        {
+            direction = Vector3.zero;
+        }
+        else if (doMove = true)
+        {
+            MoveBig();
+        }
+
+
     }
     private void MoveBig()
     {
-        if (dist2Player == detectionRange)
+
+        transform.position += direction * speed * Time.deltaTime;
+
+        if (dist2Player <= detectionRange)
         {
-            transform.position += direction * speed * Time.deltaTime;
-            if (dist2Player <= detectionRange)
-            {
-                direction = Vector3.left;
-            }
-            if (dist2Player >= detectionRange)
-            {
-                direction = Vector3.right;
-            }
+            direction = Vector3.left;
         }
-        
+        if (dist2Player >= detectionRange - 5)
+        {
+            direction = Vector3.right;
+        }
+    }
+    private void GetPlayerside()
+    {
+        GetComponent<PlayerController>.tranform
     }
 }
 
