@@ -13,8 +13,12 @@ public class BigEnemy : MonoBehaviour
     public float speed = 3f;
     public int Health;
     public float dist2Player;
+    public float dist2Left;
+    public float dist2Right;
     public float detectionRange = 5f;
-    public bool doMove=false;
+    public bool doMove = false;
+    public Transform leftPoint;
+    public Transform rightPoint;
 
 
     private Vector3 direction;
@@ -22,12 +26,6 @@ public class BigEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (other)
-        {
-            // the second point is the position of the MonoBehaviour's transform
-            dist2Player = Vector3.Distance(other.position, transform.position);
-            //print("Distance to other: " + dist2Player);
-        }
         direction = Vector3.zero;
     }
 
@@ -38,19 +36,18 @@ public class BigEnemy : MonoBehaviour
         {
             // the second point is the position of the MonoBehaviour's transform
             dist2Player = Vector3.Distance(other.position, transform.position);
-            //print("Distance to other: " + dist2Player);
         }
-        GetPlayerside();
-        if (doMove = false)
+        if (leftPoint)
         {
-            direction = Vector3.zero;
+            // the second point is the position of the MonoBehaviour's transform
+            dist2Left = Vector3.Distance(leftPoint.position, transform.position);
         }
-        else if (doMove = true)
+        if (rightPoint)
         {
-            MoveBig();
+            // the second point is the position of the MonoBehaviour's transform
+            dist2Right = Vector3.Distance(rightPoint.position, transform.position);
         }
-
-
+        MoveBig();
     }
     private void MoveBig()
     {
@@ -59,17 +56,24 @@ public class BigEnemy : MonoBehaviour
 
         if (dist2Player <= detectionRange)
         {
-            direction = Vector3.left;
+            if (dist2Player >= dist2Left)
+            {
+                direction = Vector3.left;
+            }
         }
-        if (dist2Player >= detectionRange - 5)
+        else if (dist2Player >= detectionRange)
         {
-            direction = Vector3.right;
+            if (dist2Player <= dist2Right)
+            {
+                direction = Vector3.right;
+            }
+        }
+        else
+        {
+            direction = Vector3.zero;
         }
     }
-    private void GetPlayerside()
-    {
-        GetComponent<PlayerController>.tranform
-    }
+
 }
 
 
