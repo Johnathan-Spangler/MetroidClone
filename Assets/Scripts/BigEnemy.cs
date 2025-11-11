@@ -22,30 +22,38 @@ public class BigEnemy : MonoBehaviour
     void Start()
     {
         direction = Vector3.zero;
-        if (other)
-        {
-            // the second point is the position of the MonoBehaviour's transform
-            dist2Player = Vector3.Distance(other.position, transform.position);
-            print("Distance to other: " + dist2Player);
-        }
-        //Check the enemy distance and compare them and if the X position is greater, the enemy is on the right, if is less than the enemy is on the left
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (other)
+        {
+            // the second point is the position of the MonoBehaviour's transform
+            dist2Player = Vector3.Distance(other.position, transform.position);
+            //print("Distance to other: " + dist2Player);
+        }
+        
+        
+        MoveBig();
+        
+        
     }
     private void MoveBig()
     {
-        if (dist2Player < detectionRange)
+        if (dist2Player == detectionRange)
         {
-            direction = Vector3.left;
+            transform.position += direction * speed * Time.deltaTime;
+            if (dist2Player <= detectionRange)
+            {
+                direction = Vector3.left;
+            }
+            if (dist2Player >= detectionRange)
+            {
+                direction = Vector3.right;
+            }
         }
-        if (dist2Player > detectionRange)
-        {
-            direction = Vector3.right;
-        }
+        
     }
 }
 
