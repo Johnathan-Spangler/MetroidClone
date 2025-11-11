@@ -13,7 +13,12 @@ public class BigEnemy : MonoBehaviour
     public float speed = 3f;
     public int Health;
     public float dist2Player;
+    public float dist2Left;
+    public float dist2Right;
     public float detectionRange = 5f;
+    public bool doMove = false;
+    public Transform leftPoint;
+    public Transform rightPoint;
 
 
     private Vector3 direction;
@@ -22,31 +27,53 @@ public class BigEnemy : MonoBehaviour
     void Start()
     {
         direction = Vector3.zero;
-        if (other)
-        {
-            // the second point is the position of the MonoBehaviour's transform
-            dist2Player = Vector3.Distance(other.position, transform.position);
-            print("Distance to other: " + dist2Player);
-        }
-        //Check the enemy distance and compare them and if the X position is greater, the enemy is on the right, if is less than the enemy is on the left
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (other)
+        {
+            // the second point is the position of the MonoBehaviour's transform
+            dist2Player = Vector3.Distance(other.position, transform.position);
+        }
+        if (leftPoint)
+        {
+            // the second point is the position of the MonoBehaviour's transform
+            dist2Left = Vector3.Distance(leftPoint.position, transform.position);
+        }
+        if (rightPoint)
+        {
+            // the second point is the position of the MonoBehaviour's transform
+            dist2Right = Vector3.Distance(rightPoint.position, transform.position);
+        }
+        MoveBig();
     }
     private void MoveBig()
     {
-        if (dist2Player < detectionRange)
+
+        transform.position += direction * speed * Time.deltaTime;
+
+        if (dist2Player <= detectionRange)
         {
-            direction = Vector3.left;
+            if (dist2Player >= dist2Left)
+            {
+                direction = Vector3.left;
+            }
         }
-        if (dist2Player > detectionRange)
+        else if (dist2Player >= detectionRange)
         {
-            direction = Vector3.right;
+            if (dist2Player <= dist2Right)
+            {
+                direction = Vector3.right;
+            }
+        }
+        else
+        {
+            direction = Vector3.zero;
         }
     }
+
 }
 
 

@@ -226,14 +226,16 @@ MonoBehaviour:
   moving: 0
   jumping: 0
   grounded: 0
+  shot: 0
   bulletUpgrade: 0
   jumpUpgrade: 0
   speed: 5
   jPower: 10
+  playerVelocity: {x: 0, y: 0, z: 0}
   playerLives: 99
   moveDirection: {x: 1, y: 0, z: 0}
-  bullet1: {fileID: 0}
-  bullet2: {fileID: 0}
+  bullet1: {fileID: 8655345539262318413, guid: 546c7e2ded7fed843864519d6a7c54b3, type: 3}
+  bullet2: {fileID: 4648946456983588592, guid: ee1cda145b969394aa2618e978b79f4b, type: 3}
 --- !u!136 &1829326292610798751
 CapsuleCollider:
   m_ObjectHideFlags: 0

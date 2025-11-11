@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletDamage: 3
-  speed: 6
+  speed: 12
   bulletwalldetection: 1
   player: {fileID: 4524519610735211256, guid: 529eeefc31b40b644b4b32a2b76d92b4, type: 3}
   bulletDirection: {x: 0, y: 0, z: 0}
