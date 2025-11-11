@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerVelocity = rb.velocity;
+        playerVelocity.x = Mathf.Abs(rb.velocity.x);
         OnGround();
         Movement();
     }
