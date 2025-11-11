@@ -1132,13 +1132,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4524519610735211256, guid: 529eeefc31b40b644b4b32a2b76d92b4, type: 3}
-      propertyPath: bullet1
-      value: 
-      objectReference: {fileID: 8655345539262318413, guid: 546c7e2ded7fed843864519d6a7c54b3, type: 3}
-    - target: {fileID: 4524519610735211256, guid: 529eeefc31b40b644b4b32a2b76d92b4, type: 3}
-      propertyPath: bullet2
-      value: 
-      objectReference: {fileID: 4648946456983588592, guid: ee1cda145b969394aa2618e978b79f4b, type: 3}
+      propertyPath: bulletUpgrade
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5159617190981028201, guid: 529eeefc31b40b644b4b32a2b76d92b4, type: 3}
       propertyPath: m_LocalPosition.z
       value: -14.01
