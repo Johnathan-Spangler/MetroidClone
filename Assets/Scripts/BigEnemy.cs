@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 /*
  * Topher Overbey
  * 10/28/2025
@@ -9,16 +10,12 @@ using UnityEngine;
 
 public class BigEnemy : MonoBehaviour
 {
-    public Transform other;
+    public Transform Player1;
     public float speed = 3f;
     public int Health;
     public float dist2Player;
-    public float dist2Left;
-    public float dist2Right;
     public float detectionRange = 5f;
-    public bool doMove = false;
-    public Transform leftPoint;
-    public Transform rightPoint;
+    public bool doMoveRight = false;
 
 
     private Vector3 direction;
@@ -32,22 +29,14 @@ public class BigEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (other)
+        if (Player1)
         {
             // the second point is the position of the MonoBehaviour's transform
-            dist2Player = Vector3.Distance(other.position, transform.position);
+            dist2Player = Vector3.Distance(Player1.position, transform.position);
         }
-        if (leftPoint)
-        {
-            // the second point is the position of the MonoBehaviour's transform
-            dist2Left = Vector3.Distance(leftPoint.position, transform.position);
-        }
-        if (rightPoint)
-        {
-            // the second point is the position of the MonoBehaviour's transform
-            dist2Right = Vector3.Distance(rightPoint.position, transform.position);
-        }
+        IsPlayerRight();
         MoveBig();
+        
     }
     private void MoveBig()
     {
@@ -56,24 +45,36 @@ public class BigEnemy : MonoBehaviour
 
         if (dist2Player <= detectionRange)
         {
-            if (dist2Player >= dist2Left)
-            {
-                direction = Vector3.left;
-            }
+                if (doMoveRight == false)
+                {
+                    direction = Vector3.left;
+                }
+
         }
-        else if (dist2Player >= detectionRange)
+        if (dist2Player <= detectionRange)
         {
-            if (dist2Player <= dist2Right)
-            {
-                direction = Vector3.right;
-            }
+                if (doMoveRight == true)
+                {
+                    direction = Vector3.right;
+                }
         }
-        else
+        
+    }
+    private void IsPlayerRight()
+    {
+
+
         {
-            direction = Vector3.zero;
+            if (Player1.transform.position.x >= gameObject.transform.position.x)
+            {
+                doMoveRight=true;
+            }
+            else
+            {
+                doMoveRight=false;
+            }
         }
     }
-
 }
 
 
