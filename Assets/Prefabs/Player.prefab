@@ -147,8 +147,8 @@ Camera:
   m_GameObject: {fileID: 4349214527695738153}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.10935358, g: 0, b: 0.26415092, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -333,13 +333,14 @@ MonoBehaviour:
   jumping: 0
   grounded: 0
   shot: 0
-  bulletUpgrade: 0
   jumpUpgrade: 0
+  bulletUpgrade: 0
+  playerLives: 99
   speed: 5
   jPower: 10
   playerVelocity: {x: 0, y: 0, z: 0}
-  playerLives: 99
   moveDirection: {x: 1, y: 0, z: 0}
+  currentDirection: {x: 0, y: 0, z: 0}
   bullet1: {fileID: 8655345539262318413, guid: 546c7e2ded7fed843864519d6a7c54b3, type: 3}
   bullet2: {fileID: 4648946456983588592, guid: ee1cda145b969394aa2618e978b79f4b, type: 3}
 --- !u!136 &1829326292610798751
