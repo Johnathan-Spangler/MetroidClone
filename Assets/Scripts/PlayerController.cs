@@ -12,21 +12,14 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool moving = false;
-    public bool jumping = false;
-    public bool grounded = false;
-    public bool shot = false;
-    public bool bulletUpgrade = false;
-    public bool jumpUpgrade = false;
-    //public bool ballUpgrade = false;
-    public float speed = 10;
-    public float jPower = 10;
-    public Vector3 playerVelocity = Vector3.zero;
-    public int playerLives = 99;
-    public Vector3 moveDirection = Vector3.right;
+    public bool moving = false, jumping = false, grounded = false, shot = false, jumpUpgrade = false, bulletUpgrade = false;//, ballUpgrade = false;
 
-    public GameObject bullet1;
-    public GameObject bullet2;
+    public int playerLives = 99;
+    public float speed = 10, jPower = 10;
+
+    public Vector3 playerVelocity = Vector3.zero, moveDirection = Vector3.right, currentDirection = Vector3.zero;
+
+    public GameObject bullet1, bullet2;
 
     private Rigidbody rb;
 
@@ -39,7 +32,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerVelocity.x = Mathf.Abs(rb.velocity.x);
+        playerVelocity.x = Mathf.Abs(rb.velocity.x); //Used to update bullet velocity with player momentum
         OnGround();
         Movement();
     }
@@ -48,27 +41,57 @@ public class PlayerController : MonoBehaviour
     {
         if (moving == true)
         {
-            //print("Moving " + moveDirection);
             rb.AddForce(moveDirection * (speed * 100) * Time.deltaTime, ForceMode.Force);
         }
         if (jumping == true)
         {
-            //print("Moving " + moveDirection);
-            rb.AddForce(moveDirection * (speed * jPower) * Time.deltaTime, ForceMode.Impulse);
+            currentDirection.y = moveDirection.y;
+            rb.AddForce(currentDirection * (jPower * 400) * Time.deltaTime, ForceMode.Force);
         }
     }
 
+    /// <summary>
+    /// Controll player movement and shooting logic
+    /// </summary>
     private void Movement()
     {
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        if (((moveDirection == Vector3.left && (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))) || (moveDirection == Vector3.right && (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)))) && grounded)
+        {
+            //Modify player velocity to prevent a lot of sliding when attempting to move in the opposite direction
+            playerVelocity.x /= 3;
+            if (rb.velocity.x < 0)//Account for negative velocity, because for some reason that's something that exists?? Even though velocity is speed, which SHOULD be direction independent.. But whatever..
+            {
+                playerVelocity.x *= -1;
+            }
+            rb.velocity = playerVelocity;
+            //print("Ground Back Move");
+            //print("Velocity1: " + rb.velocity.x);
+        }
+        else if (((moveDirection == Vector3.left && (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))) || (moveDirection == Vector3.right && (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)))) && !grounded)
+        {
+            //Modify player velocity to slow velocity when attempting to move in the opposite direction while airborne
+            playerVelocity.x /= 2;
+            if (rb.velocity.x < 0)
+            {
+                playerVelocity.x *= -1;
+            }
+            rb.velocity = playerVelocity;
+            //print("Air Back Move");
+            //print("Velocity2: " + rb.velocity.x);
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             moveDirection = Vector3.right;
             moving = true;
+            //print("Right");
+            //print("Velocity3: " + rb.velocity.x);
         }
         else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             moveDirection = Vector3.left;
             moving = true;
+            //print("Left");
+            //print("Velocity4: " + rb.velocity.x);
         }
         else
         {
@@ -90,12 +113,15 @@ public class PlayerController : MonoBehaviour
             jPower = 20;
         }
 
-        if (Input.GetKeyDown(KeyCode.Period) && !shot)
+        if ((Input.GetKey(KeyCode.Period) || Input.GetKey(KeyCode.KeypadPeriod)) && !shot)
         {
             StartCoroutine(Timer());
         }
     }
 
+    /// <summary>
+    /// Check if player is touching the ground, implementing cayote time to make it less frustrating to control
+    /// </summary>
     private void OnGround()
     {
         RaycastHit hit;
@@ -119,24 +145,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Limit player shooting with a timer
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator Timer()
     {
-        if (Input.GetKeyDown(KeyCode.Period))
-        {
-            shot = true;
-            Shooting();
-            yield return new WaitForSeconds(0.5f);
-            shot = false;
-        }
+        shot = true;
+        Shooting();
+        yield return new WaitForSeconds(0.5f);
+        shot = false;
     }
 
+    /// <summary>
+    /// Spawn projectile, swapping to big bullet when the upgrade is collected
+    /// </summary>
     public void Shooting()
     {
-        if (!shot)
+        if (!shot)//Make sure timer's done before proceeding
         {
             return;
         }
-        Vector3 bulletPos = transform.position;
+        Vector3 bulletPos = transform.position;//Move bullet to the correct side depending on facing direction
         float Offset = (GetComponent<Collider>().bounds.extents.x + 0.5f);
         if (moveDirection.x == 1)
         {
@@ -147,14 +177,18 @@ public class PlayerController : MonoBehaviour
             Offset *= -1;
         }
         bulletPos.x += Offset;
-        if (!bulletUpgrade)
+        if (!bulletUpgrade)//Spawn normal bullet
         {
             GameObject newBullet = Instantiate(bullet1, bulletPos, transform.rotation);
             newBullet.GetComponent<BulletScript>().player = this;
         }
-        else
+        else//Spawn big bullet
         {
-            GameObject newBullet = Instantiate(bullet2, bulletPos, transform.rotation);
+            Quaternion rotOffset = transform.rotation;
+            rotOffset.z = 0.7071068f;// I used a calculator to find this value. It makes the bullet rotate at 90 deg from the player. Here's the calculator: https://www.andre-gaschler.com/rotationconverter
+            rotOffset.w = 0.7071068f;// Apparently I need this too? Idk what it does, but the calculator said it existed, and it doesn't work without it, so..
+
+            GameObject newBullet = Instantiate(bullet2, bulletPos, rotOffset);
             newBullet.GetComponent<BulletScript>().player = this;
         }
     }
