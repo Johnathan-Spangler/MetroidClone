@@ -45,6 +45,14 @@ public class BulletScript : MonoBehaviour
             }
             Destroy(gameObject);
         }
+        if (collision.gameObject.GetComponent<BigEnemy>())
+        {//lower the health of the enemy when collision with bullet
+            for (int i = 0; i < bulletDamage; i++)
+            {
+                collision.gameObject.GetComponent<BigEnemy>().EnemyHurt();
+            }
+            Destroy(gameObject);
+        }
         if (collision.gameObject.CompareTag("Enviorment"))
         {
             Destroy(gameObject);

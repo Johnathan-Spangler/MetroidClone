@@ -38,6 +38,14 @@ public class BigEnemy : MonoBehaviour
         MoveBig();
         
     }
+    public void EnemyHurt()
+    {
+        Health--;
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
     private void MoveBig()
     {
 
