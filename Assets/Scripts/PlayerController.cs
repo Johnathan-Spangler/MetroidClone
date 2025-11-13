@@ -4,6 +4,7 @@ using Unity.VisualScripting.ReorderableList;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 /* Johnathan Spangler
  * 10/28/25
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public int playerLives = 99;
     public float speed = 10, jPower = 10;
+    public int sceneIndex;
 
     public Vector3 playerVelocity = Vector3.zero, moveDirection = Vector3.right, currentDirection = Vector3.zero;
 
@@ -35,8 +37,20 @@ public class PlayerController : MonoBehaviour
         playerVelocity.x = Mathf.Abs(rb.velocity.x); //Used to update bullet velocity with player momentum
         OnGround();
         Movement();
+        if (playerLives <= 0)
+        {
+            SceneManager.LoadScene(sceneIndex);
+        }
+        
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<EnemyDamage>())
+        {
+            collision.gameObject.GetComponent<EnemyDamage>().DamagePower();
+        }
+    }
     private void FixedUpdate()
     {
         if (moving == true)

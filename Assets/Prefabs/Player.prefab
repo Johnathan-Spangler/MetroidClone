@@ -338,6 +338,7 @@ MonoBehaviour:
   playerLives: 99
   speed: 5
   jPower: 10
+  sceneIndex: 2
   playerVelocity: {x: 0, y: 0, z: 0}
   moveDirection: {x: 1, y: 0, z: 0}
   currentDirection: {x: 0, y: 0, z: 0}
@@ -391,5 +392,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
